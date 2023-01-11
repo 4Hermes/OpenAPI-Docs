@@ -35,9 +35,7 @@
     "/users": {
       "get": {
         "summary": "Get Users",
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "responses": {
           "200": {
             "description": "Returns an array of User objects.",
@@ -103,9 +101,7 @@
           },
           "description": "The object containing the Users properties."
         },
-        "tags": [
-          "Users"
-        ]
+        "tags": ["Users"]
       }
     },
     "/users/{userId}": {
@@ -122,9 +118,7 @@
       ],
       "get": {
         "summary": "Get User",
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "responses": {
           "200": {
             "description": "The User with the given `userId`.",
@@ -235,9 +229,7 @@
           },
           "description": "An object containing the properties you wish to update."
         },
-        "tags": [
-          "Users"
-        ]
+        "tags": ["Users"]
       },
       "delete": {
         "summary": "Delete User",
@@ -267,17 +259,13 @@
           }
         },
         "description": "Delete an existing User with the given `userId`.",
-        "tags": [
-          "Users"
-        ]
+        "tags": ["Users"]
       }
     },
     "/friends": {
       "get": {
         "summary": "Get Friends",
-        "tags": [
-          "Friends"
-        ],
+        "tags": ["Friends"],
         "responses": {
           "200": {
             "description": "An array of Friend objects.",
@@ -343,9 +331,7 @@
           },
           "description": "The body of the Friend to be created."
         },
-        "tags": [
-          "Friends"
-        ]
+        "tags": ["Friends"]
       }
     },
     "/friends/{friendId}": {
@@ -361,9 +347,7 @@
       ],
       "get": {
         "summary": "Get A Friend",
-        "tags": [
-          "Friends"
-        ],
+        "tags": ["Friends"],
         "responses": {
           "200": {
             "description": "OK",
@@ -412,9 +396,7 @@
           }
         },
         "description": "Update a friend with the given `friendId`.",
-        "tags": [
-          "Friends"
-        ]
+        "tags": ["Friends"]
       },
       "delete": {
         "summary": "Delete Friend",
@@ -437,17 +419,13 @@
           }
         },
         "description": "Delete a Friend with the given `friendId`.",
-        "tags": [
-          "Friends"
-        ]
+        "tags": ["Friends"]
       }
     },
     "/checkins": {
       "get": {
         "summary": "Get All Check Ins",
-        "tags": [
-          "CheckIns"
-        ],
+        "tags": ["CheckIns"],
         "responses": {
           "200": {
             "description": "An array of CheckIn objects.",
@@ -513,9 +491,7 @@
           },
           "description": "An object containing the CheckIn properties."
         },
-        "tags": [
-          "CheckIns"
-        ]
+        "tags": ["CheckIns"]
       }
     },
     "/checkins/{checkInId}": {
@@ -531,9 +507,7 @@
       ],
       "get": {
         "summary": "Get Check In",
-        "tags": [
-          "CheckIns"
-        ],
+        "tags": ["CheckIns"],
         "responses": {
           "200": {
             "description": "OK",
@@ -602,9 +576,7 @@
           },
           "description": "An object with the new properties/values to update."
         },
-        "tags": [
-          "CheckIns"
-        ]
+        "tags": ["CheckIns"]
       },
       "delete": {
         "summary": "Delete Check In",
@@ -634,9 +606,7 @@
           }
         },
         "description": "Delete an existing Check In with the given `checkInId`.",
-        "tags": [
-          "CheckIns"
-        ]
+        "tags": ["CheckIns"]
       }
     }
   },
@@ -661,23 +631,14 @@
         "properties": {
           "_id": {
             "description": "Unique identifier for the given Check In as a Mongo ObjectID.",
-            "type": [
-              "string",
-              "number"
-            ]
+            "type": ["string", "number"]
           },
           "userId": {
-            "type": [
-              "string",
-              "number"
-            ],
+            "type": ["string", "number"],
             "description": "Unique identifier for the User who initiated the Check In process."
           },
           "friendId": {
-            "type": [
-              "string",
-              "number"
-            ],
+            "type": ["string", "number"],
             "description": "Unique identifier for the Friend who the User wants to check in on."
           },
           "createdDate": {
@@ -690,13 +651,7 @@
             "format": "date-time"
           }
         },
-        "required": [
-          "_id",
-          "userId",
-          "friendId",
-          "createdDate",
-          "lastModifiedDate"
-        ]
+        "required": ["_id", "userId", "friendId", "createdDate", "lastModifiedDate"]
       },
       "CheckIn_CREATE": {
         "title": "CheckIn_CREATE",
@@ -716,17 +671,11 @@
         ],
         "properties": {
           "userId": {
-            "type": [
-              "string",
-              "number"
-            ],
+            "type": ["string", "number"],
             "description": "Unique identifier for the User who initiated the Check In process."
           },
           "friendId": {
-            "type": [
-              "string",
-              "number"
-            ],
+            "type": ["string", "number"],
             "description": "Unique identifier for the Friend who the User wants to check in on."
           },
           "lastModifiedDate": {
@@ -735,10 +684,7 @@
             "description": "The date-time when the Check In was completed. It'll default to the current date and time if no value was provided."
           }
         },
-        "required": [
-          "userId",
-          "friendId"
-        ]
+        "required": ["userId", "friendId"]
       },
       "CheckIn_UPDATE": {
         "title": "CheckIn_UPDATE",
@@ -758,17 +704,11 @@
         ],
         "properties": {
           "userId": {
-            "type": [
-              "string",
-              "number"
-            ],
+            "type": ["string", "number"],
             "description": "Unique identifier for the User who initiated the Check In process."
           },
           "friendId": {
-            "type": [
-              "string",
-              "number"
-            ],
+            "type": ["string", "number"],
             "description": "Unique identifier for the Friend who the User wants to check in on."
           },
           "createdDate": {
@@ -782,10 +722,7 @@
             "description": "The date-time when the Check In was completed. It'll default to the current date and time if no value was provided."
           }
         },
-        "required": [
-          "userId",
-          "friendId"
-        ]
+        "required": ["userId", "friendId"]
       },
       "Friend": {
         "title": "Friend",
@@ -796,10 +733,7 @@
         "description": "The model of a standard Friend that's stored in the Hermes DB.",
         "properties": {
           "_id": {
-            "type": [
-              "string",
-              "number"
-            ],
+            "type": ["string", "number"],
             "description": "Unique identifier for the given Friend as a Mongo ObjectID."
           },
           "contactId": {
@@ -883,9 +817,7 @@
             "description": "The date-time when the associated User contacted this Friend. Will not be set if no value is provided."
           }
         },
-        "required": [
-          "contactId"
-        ]
+        "required": ["contactId"]
       },
       "User": {
         "title": "User",
@@ -904,10 +836,7 @@
         ],
         "properties": {
           "_id": {
-            "type": [
-              "string",
-              "number"
-            ],
+            "type": ["string", "number"],
             "description": "Unique identifier for the given User as a Mongo ObjectID."
           },
           "username": {
@@ -925,12 +854,7 @@
             "description": "The date-time when the User was last modified/updated. Defaults to the date & time the object was created."
           }
         },
-        "required": [
-          "_id",
-          "username",
-          "createdDate",
-          "lastModifiedDate"
-        ]
+        "required": ["_id", "username", "createdDate", "lastModifiedDate"]
       },
       "User_CREATE": {
         "title": "User_CREATE",
@@ -965,9 +889,7 @@
             "description": "The date-time when the User was last modified/updated. Defaults to the date & time the object was created."
           }
         },
-        "required": [
-          "username"
-        ]
+        "required": ["username"]
       },
       "User_UPDATE": {
         "title": "User",
@@ -995,10 +917,7 @@
             "description": "The date-time when the User was last modified/updated. Defaults to the date & time the object was created."
           }
         },
-        "required": [
-          "username",
-          "lastModifiedDate"
-        ]
+        "required": ["username", "lastModifiedDate"]
       }
     },
     "securitySchemes": {

@@ -6,12 +6,12 @@ description: The model of the object to send to the API when creating a new Frie
 examples:
   - contactId: '1234567890'
   - contactId: '1234567890'
-    messagePrompt: 'Please create a message from me, 4lch4, to my friend ${FRIEND_NAME} asking them what they''ve been up to since we last spoke.'
+    messagePrompt: "Please create a message from me, 4lch4, to my friend ${FRIEND_NAME} asking them what they've been up to since we last spoke."
     lastContactDate: '2022-12-30T14:15:02-0600'
   - contactId: '1234567890'
     lastContactDate: '2022-12-30T14:15:02-0600'
   - contactId: '1234567890'
-    messagePrompt: 'Please create a message from me, 4lch4, to my friend ${FRIEND_NAME} asking them what they''ve been up to since we last spoke.'
+    messagePrompt: "Please create a message from me, 4lch4, to my friend ${FRIEND_NAME} asking them what they've been up to since we last spoke."
 properties:
   contactId:
     type: string

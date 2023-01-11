@@ -1,6 +1,4 @@
 openapi: 3.0.0
-x-stoplight:
-  id: 8rmmut9xkw3te
 info:
   title: Hermes-Prime
   version: '1.0'
@@ -429,7 +427,243 @@ paths:
       tags:
         - CheckIns
 components:
-  schemas: {}
+  schemas:
+    #region CheckIn Schemas
+    CheckIn:
+      title: CheckIn
+      type: object
+      description: The model of a standard Check In object that's stored in the DB when a Check In is initiated.
+      example:
+        - _id: '1234567890'
+          userId: '321231455'
+          friendId: '8931458135'
+          createdDate: '2023-01-01T09:03:21-0600'
+          promptAttempts: 1
+      properties:
+        _id:
+          description: Unique identifier for the given Check In as a Mongo ObjectID.
+          type: string
+        userId:
+          type: string
+          description: Unique identifier for the User who initiated the Check In process.
+        friendId:
+          type: string
+          description: Unique identifier for the Friend who the User wants to check in on.
+        createdDate:
+          type: string
+          format: date-time
+          description: The date-time when the Check In was completed. It'll default to the current date and time if no value was provided.
+        lastModifiedDate:
+          type: string
+          format: date-time
+      required:
+        - _id
+        - userId
+        - friendId
+        - createdDate
+        - lastModifiedDate
+
+    CheckIn_CREATE:
+      title: CheckIn_CREATE
+      type: object
+      description: The model of a standard Check In object that's stored in the DB when a Check In is initiated.
+      example:
+        - _id: '1234567890'
+          userId: '321231455'
+          friendId: '8931458135'
+          createdDate: '2023-01-01T09:03:21-0600'
+          promptAttempts: 1
+      properties:
+        userId:
+          type: string
+          description: Unique identifier for the User who initiated the Check In process.
+        friendId:
+          type: string
+          description: Unique identifier for the Friend who the User wants to check in on.
+        lastModifiedDate:
+          type: string
+          format: date-time
+          description: The date-time when the Check In was completed. It'll default to the current date and time if no value was provided.
+      required:
+        - userId
+        - friendId
+
+    CheckIn_UPDATE:
+      title: CheckIn_UPDATE
+      type: object
+      description: The model of a standard Check In object that's stored in the DB when a Check In is initiated.
+      example:
+        - _id: '1234567890'
+          userId: '321231455'
+          friendId: '8931458135'
+          createdDate: '2023-01-01T09:03:21-0600'
+          promptAttempts: 1
+      properties:
+        userId:
+          type: string
+          description: Unique identifier for the User who initiated the Check In process.
+        friendId:
+          type: string
+          description: Unique identifier for the Friend who the User wants to check in on.
+        createdDate:
+          type: string
+          format: date-time
+          description: The date-time when the Check In was initiated. It'll default to the current date and time.
+        lastModifiedDate:
+          type: string
+          format: date-time
+          description: The date-time when the Check In was completed. It'll default to the current date and time if no value was provided.
+      required:
+        - userId
+        - friendId
+    #endregion CheckIn Schemas
+
+    #region Friend Schemas
+    Friend:
+      title: Friend
+      type: object
+      description: The model of a standard Friend that's stored in the Hermes DB.
+      properties:
+        _id:
+          type: string
+          description: Unique identifier for the given Friend as a Mongo ObjectID.
+        contactId:
+          type: string
+          description: The unique identifier of the Friends contact information on thU users phone.
+        messagePrompt:
+          type: string
+          description: What is sent to GPT3 to generate a message for this Friend. If the user doesn't provide one then a default is used.
+        messageAttempts:
+          type: number
+          description: The amount of times **Hermes** had to generate a message for the User to approve before it was approved and sent to the receiving Friend. If no value is provided then the default value of `3` is used.
+        createdDate:
+          type: string
+          format: date-time
+          description: The date-time when this Friend was created. Will default to the current date and time if no value is provided.
+        lastModifiedDate:
+          type: string
+          format: date-time
+          description: The date-time when this Friend object was last modified. Will default to the current date and time if no value is provided.
+        lastContactDate:
+          type: string
+          format: date-time
+          description: The date-time when the associated User last contacted this Friend. Will not be set if no value is provided.
+      required:
+        - _id
+        - contactId
+        - messagePrompt
+        - messageAttempts
+        - createdDate
+        - lastModifiedDate
+
+    Friend_CREATE:
+      title: Friend_CREATE
+      type: object
+      description: The model of the object to send to the API when creating a new Friend to store in the Hermes DB.
+      example:
+        - contactId: '1234567890'
+        - contactId: '1234567890'
+          messagePrompt: "Please create a message from me, 4lch4, to my friend ${FRIEND_NAME} asking them what they've been up to since we last spoke."
+          lastContactDate: '2022-12-30T14:15:02-0600'
+        - contactId: '1234567890'
+          lastContactDate: '2022-12-30T14:15:02-0600'
+        - contactId: '1234567890'
+          messagePrompt: "Please create a message from me, 4lch4, to my friend ${FRIEND_NAME} asking them what they've been up to since we last spoke."
+      properties:
+        contactId:
+          type: string
+          description: The unique identifier of the Friends contact information on thU users phone.
+        messagePrompt:
+          type: string
+          description: What is sent to GPT3 to generate a message for this Friend. If the user doesn't provide one then a default is used.
+        messageAttempts:
+          type: number
+          description: The amount of times **Hermes** had to generate a message for the User to approve before it was approved and sent to the receiving Friend. If no value is provided then the default value of `3` is used.
+        lastContactDate:
+          type: string
+          format: date-time
+          description: The date-time when the associated User contacted this Friend. Will not be set if no value is provided.
+      required:
+        - contactId
+    #endregion Friend Schemas
+
+    #region User Schemas
+    User:
+      title: User
+      type: object
+      description: The model of a standard User that's stored in the Hermes DB.
+      example:
+        - _id: 63ab4a738353e19cd730b527
+          username: 4lch4
+          createdDate: '2023-01-02T14:15:03-06:00'
+          lastModifedDate: '2023-01-02T14:15:03-06:00'
+      properties:
+        _id:
+          type: string
+          description: Unique identifier for the given User as a Mongo ObjectID.
+        username:
+          type: string
+          description: The username/display name of the User.
+        createdDate:
+          type: string
+          description: The date-time when the User was created. Will default to now if now value is provided.
+          format: date-time
+        lastModifiedDate:
+          type: string
+          format: date-time
+          description: The date-time when the User was last modified/updated. Defaults to the date & time the object was created.
+      required:
+        - _id
+        - username
+        - createdDate
+        - lastModifiedDate
+
+    User_CREATE:
+      title: User_CREATE
+      type: object
+      description: The model of the object to send to the API when creating a new User to store in the Hermes DB.
+      example:
+        - username: 4lch4
+          createdDate: '2023-01-08T16:20:18-0600'
+          lastModifiedDate: '2023-01-08T16:20:18-0600'
+        - username: 4lch4
+      properties:
+        username:
+          type: string
+          description: The username/display name of the User.
+        createdDate:
+          type: string
+          format: date-time
+          description: The date-time when the User was created. Will default to now if now value is provided.
+        lastModifiedDate:
+          type: string
+          format: date-time
+          description: The date-time when the User was last modified/updated. Defaults to the date & time the object was created.
+      required:
+        - username
+
+    User_UPDATE:
+      title: User
+      type: object
+      description: The model of a standard User that's stored in the Hermes DB.
+      example:
+        - _id: 63ab4a738353e19cd730b527
+          username: 4lch4
+          createdDate: '2023-01-02T14:15:03-06:00'
+          lastModifedDate: '2023-01-02T14:15:03-06:00'
+      properties:
+        username:
+          type: string
+          description: The username/display name of the User.
+        lastModifiedDate:
+          type: string
+          format: date-time
+          description: The date-time when the User was last modified/updated. Defaults to the date & time the object was created.
+      required:
+        - username
+        - lastModifiedDate
+    #endregion User Schemas
+
   securitySchemes:
     Query API Key:
       name: apiKey
