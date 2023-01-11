@@ -37,7 +37,7 @@ tasks:
         docker run -d --name={{ .DOCKER_CONTAINER_NAME }} \
                   -p {{ .OUTER_PORT }}:{{ .INNER_PORT }} \
                   -e SWAGGER_JSON=/app/{{ .SPEC_FILENAME }} \
-                  -v ${PWD}/site:/app {{ .DOCKER_IMAGE_NAME }}
+                  -v ${PWD}:/app {{ .DOCKER_IMAGE_NAME }}
 
   copy:
     desc: Copies the current version of the OpenAPI Specification to the API directory.
