@@ -39,6 +39,19 @@ tasks:
                   -e SWAGGER_JSON=/app/{{ .SPEC_FILENAME }} \
                   -v ${PWD}:/app {{ .DOCKER_IMAGE_NAME }}
 
+  stop:
+    desc: Stops and deletes the currently running Docker container.
+    cmds:
+      - docker stop {{ .DOCKER_CONTAINER_NAME }}
+      - docker rm {{ .DOCKER_CONTAINER_NAME }}
+
+  redeploy:
+    desc: Performs a full redeploy with the latest version of the OpenAPI Specification file.
+    cmds:
+      - git pull
+      - task: stop
+      - task: start
+
   copy:
     desc: Copies the current version of the OpenAPI Specification to the API directory.
     cmds:
