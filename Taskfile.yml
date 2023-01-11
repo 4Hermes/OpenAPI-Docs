@@ -39,6 +39,11 @@ tasks:
                   -e SWAGGER_JSON=/app/{{ .SPEC_FILENAME }} \
                   -v ${PWD}/site:/app {{ .DOCKER_IMAGE_NAME }}
 
+  copy:
+    desc: Copies the current version of the OpenAPI Specification to the API directory.
+    cmds:
+      - cp ./Hermes-Prime.yaml ../API
+
   # gen:client:
   #   aliases: [gc]
   #   desc: Generate client code from the OpenAPI Specification using the OpenAPI Generator CLI.
