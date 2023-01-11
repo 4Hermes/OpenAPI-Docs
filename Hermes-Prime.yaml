@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: Hermes-Prime-3.0
+  title: Hermes-Prime
   version: "1.0"
   description: |-
     Handles the majority of what **Project Hermes** is capable of. For example, it provides endpoints that manage the CRUD operations for _Users_ and _Friends_, as well as an endpoint for _Check Ins_.
