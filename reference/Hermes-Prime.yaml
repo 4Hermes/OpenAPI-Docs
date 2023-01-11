@@ -1,0 +1,412 @@
+openapi: 3.1.0
+x-stoplight:
+  id: usrtwr8edkxmm
+info:
+  title: Hermes-Prime
+  version: '1.0'
+  summary: The face of all of the projects APIs and delegates the actual handling/processing of requests to the related microservice.
+  description: |-
+    Serves as the "gateway" for all requests to a **Project Hermes** API. This means that any request to `hermesapp.dev/api/v1/*` will hit this API where it will then pass the request on to the related microservice to be handled.
+
+    For example, if a user sends a request to `/api/v1/friends` then the request is first passed to the **API-Auth** service and if it passes through there it'll go to the **API-Friends** service.
+  contact:
+    name: Devin Leaman (4lch4)
+    url: 'https://4lch4.link'
+    email: hey@4lch4.email
+  license:
+    name: GPLv3
+    url: 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+servers:
+  - url: 'http://localhost:5050/api/v1'
+    description: Local Testing
+  - url: 'https://test.hermesapp.dev/api/v1'
+    description: Test Instance
+  - description: Production Instance
+    url: 'https://hermesapp.dev/api/v1'
+paths:
+  /users:
+    get:
+      summary: Get Users
+      responses:
+        '200':
+          description: Returns an array of User objects.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: ../models/User.yaml
+        '401':
+          description: No API token was provided.
+        '403':
+          description: Your API token doesn't have the necessary scope(s) to access this endpoint.
+        '500':
+          description: Internal Server Error
+      operationId: getUsers
+      description: |-
+        _This endpoint is an Admin only endpoint. You can only access it if your API token has an `admin` level scope._
+
+        Retrieve a list/array of all the Users currently stored in the DB.
+      tags:
+        - Users
+    post:
+      summary: Create User
+      operationId: createUser
+      responses:
+        '200':
+          description: The body of the User that was created.
+          content:
+            application/json:
+              schema:
+                $ref: ../models/User.yaml
+        '400':
+          description: Bad Request
+        '401':
+          description: No API token was provided.
+        '403':
+          description: Your API token doesn't have the necessary scope(s) to access this endpoint.
+        '500':
+          description: Internal Server Error
+      description: Create a new User and store it in the DB.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ../models/User_CREATE.yaml
+        description: ''
+      tags:
+        - Users
+  '/users/{userId}':
+    get:
+      summary: Get User
+      responses:
+        '200':
+          description: The User with the given `userId`.
+          content:
+            application/json:
+              schema:
+                $ref: ../models/User.yaml
+        '401':
+          description: No API token was provided.
+        '403':
+          description: Your API token doesn't have the necessary scope(s) to access this endpoint.
+        '500':
+          description: Internal Server Error
+      operationId: getUser
+      description: Get an existing User with the given `userId`.
+      tags:
+        - Users
+    parameters:
+      - schema:
+          type: string
+        name: userId
+        in: path
+        required: true
+    patch:
+      summary: Update User
+      operationId: updateUser
+      responses:
+        '200':
+          description: The latest version of the User object after the given properties were updated.
+          content:
+            application/json:
+              schema:
+                $ref: ../models/User.yaml
+        '400':
+          description: Bad Request
+        '401':
+          description: No API token was provided.
+        '403':
+          description: Your API token doesn't have the necessary scope(s) to access this endpoint.
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Update an existing User with the given `userId`.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ../models/User_UPDATE.yaml
+        description: An object containing the properties you wish to update.
+      tags:
+        - Users
+    delete:
+      summary: Delete User
+      operationId: deleteUser
+      responses:
+        '200':
+          description: The User object that was deleted.
+          content:
+            application/json:
+              schema:
+                $ref: ../models/User.yaml
+        '401':
+          description: No API token was provided.
+        '403':
+          description: Your API token doesn't have the necessary scope(s) to access this endpoint.
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Delete an existing User with the given `userId`.
+      tags:
+        - Users
+  /friends:
+    get:
+      summary: Get Friends
+      responses:
+        '200':
+          description: An array of Friend objects.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: ../models/Friend.yaml
+        '401':
+          description: No API token was provided.
+        '403':
+          description: Your API token doesn't have the necessary scope(s) to access this endpoint.
+        '500':
+          description: Internal Server Error
+      operationId: getFriends
+      description: |
+        _This endpoint is an Admin only endpoint. You can only access it if your API token has an `admin` level scope._
+
+        Retrieve a list/array of all the Friends currently stored in the DB.
+      tags:
+        - Friends
+    post:
+      summary: Create Friend
+      operationId: createFriend
+      responses:
+        '200':
+          description: The body of the Friend that was created.
+          content:
+            application/json:
+              schema:
+                $ref: ../models/Friend.yaml
+        '400':
+          description: Bad Request
+        '401':
+          description: No API token was provided.
+        '403':
+          description: Your API token doesn't have the necessary scope(s) to access this endpoint.
+        '500':
+          description: Internal Server Error
+      tags:
+        - Friends
+      description: Create a new Friend and store it in the DB.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ../models/Friend_CREATE.yaml
+        description: The body of the Friend to be created.
+    parameters: []
+  '/friends/{friendId}':
+    parameters:
+      - schema:
+          type: string
+        name: friendId
+        in: path
+        required: true
+    get:
+      summary: Get A Friend
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ../models/Friend.yaml
+        '401':
+          description: No API token was provided.
+        '403':
+          description: Your API token doesn't have the necessary scope(s) to access this endpoint.
+        '500':
+          description: Internal Server Error
+      operationId: getFriend
+      description: Get a friend with the given `friendId`.
+      tags:
+        - Friends
+    delete:
+      summary: Delete Friend
+      operationId: deleteFriend
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: No API token was provided.
+        '403':
+          description: Your API token doesn't have the necessary scope(s) to access this endpoint.
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Delete a Friend with the given `friendId`.
+      tags:
+        - Friends
+    patch:
+      summary: Update Friend
+      operationId: updateFriend
+      responses:
+        '200':
+          description: Returns the latest version of the Friend object after the given properties were updated.
+        '400':
+          description: Bad Request
+        '401':
+          description: No API token was provided.
+        '403':
+          description: Your API token doesn't have the necessary scope(s) to access this endpoint.
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Update a friend with the given `friendId`.
+      tags:
+        - Friends
+  /checkins:
+    get:
+      summary: Get All Check Ins
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: ../models/CheckIn.yaml
+        '401':
+          description: No API token was provided.
+        '403':
+          description: Your API token doesn't have the necessary scope(s) to access this endpoint.
+        '500':
+          description: Internal Server Error
+      operationId: getCheckIns
+      description: |-
+        _This endpoint is an Admin only endpoint. You can only access it if your API token has an `admin` level scope._
+
+        Retrieve a list/array of all the Users currently stored in the DB.
+      tags:
+        - Check-Ins
+    parameters: []
+    post:
+      summary: Create Check In
+      operationId: createCheckIn
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ../models/CheckIn.yaml
+        '400':
+          description: Bad Request
+        '401':
+          description: No API token was provided.
+        '403':
+          description: Your API token doesn't have the necessary scope(s) to access this endpoint.
+        '500':
+          description: Internal Server Error
+      description: Initiates the Check In process and stores an object in the DB for record of the event.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ../models/CheckIn_CREATE.yaml
+      tags:
+        - Check-Ins
+  '/checkins/{checkInId}':
+    parameters:
+      - schema:
+          type: string
+        name: checkInId
+        in: path
+        required: true
+    get:
+      summary: Get Check In
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ../models/CheckIn.yaml
+        '401':
+          description: No API token was provided.
+        '403':
+          description: Your API token doesn't have the necessary scope(s) to access this endpoint.
+        '404':
+          description: No check in with the given ID could be found.
+        '500':
+          description: Internal Server Error
+      operationId: getCheckIn
+      description: Get an existing Check In with the given `checkInId`.
+      tags:
+        - Check-Ins
+    patch:
+      summary: Update Check In
+      operationId: updateCheckIn
+      responses:
+        '200':
+          description: Returns the latest version of the CheckIn object after the given properties were updated.
+          content:
+            application/json:
+              schema:
+                $ref: ../models/CheckIn.yaml
+        '400':
+          description: Bad Request
+        '401':
+          description: No API token was provided.
+        '403':
+          description: Your API token doesn't have the necessary scope(s) to access this endpoint.
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Update an existing Check In with the given `checkInId`.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ../models/CheckIn_UPDATE.yaml
+        description: An object with the new properties/values to update.
+      tags:
+        - Check-Ins
+    delete:
+      summary: Delete Check In
+      operationId: deleteCheckIn
+      responses:
+        '200':
+          description: The Check In object that was deleted.
+          content:
+            application/json:
+              schema:
+                $ref: ../models/CheckIn.yaml
+        '401':
+          description: No API token was provided.
+        '403':
+          description: Your API token doesn't have the necessary scope(s) to access this endpoint.
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Delete an existing Check In with the given `checkInId`.
+      tags:
+        - Check-Ins
+components:
+  schemas: {}
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: query
+      name: apiKey
+security:
+  - apiKey: []
+tags:
+  - name: Check-Ins
+  - name: Friends
+  - name: Users

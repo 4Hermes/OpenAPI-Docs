@@ -1,0 +1,32 @@
+title: User
+x-stoplight:
+  id: e3zglb3cf9c84
+type: object
+description: The model of a standard User that's stored in the Hermes DB.
+examples:
+  - _id: 63ab4a738353e19cd730b527
+    username: 4lch4
+    createdDate: '2023-01-02T14:15:03-06:00'
+    lastModifedDate: '2023-01-02T14:15:03-06:00'
+properties:
+  _id:
+    type:
+      - string
+      - number
+    description: Unique identifier for the given User as a Mongo ObjectID.
+  username:
+    type: string
+    description: The username/display name of the User.
+  createdDate:
+    type: string
+    description: The date-time when the User was created. Will default to now if now value is provided.
+    format: date-time
+  lastModifiedDate:
+    type: string
+    format: date-time
+    description: The date-time when the User was last modified/updated. Defaults to the date & time the object was created.
+required:
+  - _id
+  - username
+  - createdDate
+  - lastModifiedDate

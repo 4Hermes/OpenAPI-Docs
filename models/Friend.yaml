@@ -1,0 +1,39 @@
+title: Friend
+x-stoplight:
+  id: lv1cvw110hokc
+type: object
+description: The model of a standard Friend that's stored in the Hermes DB.
+properties:
+  _id:
+    type:
+      - string
+      - number
+    description: Unique identifier for the given Friend as a Mongo ObjectID.
+  contactId:
+    type: string
+    description: The unique identifier of the Friends contact information on thU users phone.
+  messagePrompt:
+    type: string
+    description: What is sent to GPT3 to generate a message for this Friend. If the user doesn't provide one then a default is used.
+  messageAttempts:
+    type: number
+    description: The amount of times **Hermes** had to generate a message for the User to approve before it was approved and sent to the receiving Friend. If no value is provided then the default value of `3` is used.
+  createdDate:
+    type: string
+    format: date-time
+    description: The date-time when this Friend was created. Will default to the current date and time if no value is provided.
+  lastModifiedDate:
+    type: string
+    format: date-time
+    description: The date-time when this Friend object was last modified. Will default to the current date and time if no value is provided.
+  lastContactDate:
+    type: string
+    format: date-time
+    description: The date-time when the associated User last contacted this Friend. Will not be set if no value is provided.
+required:
+  - _id
+  - contactId
+  - messagePrompt
+  - messageAttempts
+  - createdDate
+  - lastModifiedDate

@@ -1,0 +1,24 @@
+title: User_CREATE
+x-stoplight:
+  id: l0lxy702k8wcd
+type: object
+description: The model of the object to send to the API when creating a new User to store in the Hermes DB.
+examples:
+  - username: 4lch4
+    createdDate: '2023-01-08T16:20:18-0600'
+    lastModifiedDate: '2023-01-08T16:20:18-0600'
+  - username: 4lch4
+properties:
+  username:
+    type: string
+    description: The username/display name of the User.
+  createdDate:
+    type: string
+    format: date-time
+    description: The date-time when the User was created. Will default to now if now value is provided.
+  lastModifiedDate:
+    type: string
+    format: date-time
+    description: The date-time when the User was last modified/updated. Defaults to the date & time the object was created.
+required:
+  - username

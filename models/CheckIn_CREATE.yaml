@@ -1,0 +1,29 @@
+title: CheckIn_CREATE
+x-stoplight:
+  id: bocmiic4g6ltz
+type: object
+description: The model of a standard Check In object that's stored in the DB when a Check In is initiated.
+examples:
+  - _id: '1234567890'
+    userId: '321231455'
+    friendId: '8931458135'
+    createdDate: '2023-01-01T09:03:21-0600'
+    promptAttempts: 1
+properties:
+  userId:
+    type:
+      - string
+      - number
+    description: Unique identifier for the User who initiated the Check In process.
+  friendId:
+    type:
+      - string
+      - number
+    description: Unique identifier for the Friend who the User wants to check in on.
+  lastModifiedDate:
+    type: string
+    format: date-time
+    description: The date-time when the Check In was completed. It'll default to the current date and time if no value was provided.
+required:
+  - userId
+  - friendId
