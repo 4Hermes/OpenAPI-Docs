@@ -1,6 +1,4 @@
 openapi: 3.0.0
-x-stoplight:
-  id: 8rmmut9xkw3te
 info:
   title: Hermes-Prime-3.0
   version: '1.0'
@@ -432,8 +430,6 @@ components:
   schemas:
     CheckIn:
       title: CheckIn
-      x-stoplight:
-        id: w6nljbpo81ghw
       type: object
       description: The model of a standard Check In object that's stored in the DB when a Check In is initiated.
       examples:
@@ -473,8 +469,6 @@ components:
         - lastModifiedDate
     CheckIn_CREATE:
       title: CheckIn_CREATE
-      x-stoplight:
-        id: bocmiic4g6ltz
       type: object
       description: The model of a standard Check In object that's stored in the DB when a Check In is initiated.
       examples:
@@ -503,8 +497,6 @@ components:
         - friendId
     CheckIn_UPDATE:
       title: CheckIn_UPDATE
-      x-stoplight:
-        id: 8hoosh7o8qr0b
       type: object
       description: The model of a standard Check In object that's stored in the DB when a Check In is initiated.
       examples:
@@ -537,8 +529,6 @@ components:
         - friendId
     Friend:
       title: Friend
-      x-stoplight:
-        id: lv1cvw110hokc
       type: object
       description: The model of a standard Friend that's stored in the Hermes DB.
       properties:
@@ -577,19 +567,17 @@ components:
         - lastModifiedDate
     Friend_CREATE:
       title: Friend_CREATE
-      x-stoplight:
-        id: zbqtfg830nh7r
       type: object
       description: The model of the object to send to the API when creating a new Friend to store in the Hermes DB.
       examples:
         - contactId: '1234567890'
         - contactId: '1234567890'
-          messagePrompt: 'Please create a message from me, 4lch4, to my friend ${FRIEND_NAME} asking them what they''ve been up to since we last spoke.'
+          messagePrompt: "Please create a message from me, 4lch4, to my friend ${FRIEND_NAME} asking them what they've been up to since we last spoke."
           lastContactDate: '2022-12-30T14:15:02-0600'
         - contactId: '1234567890'
           lastContactDate: '2022-12-30T14:15:02-0600'
         - contactId: '1234567890'
-          messagePrompt: 'Please create a message from me, 4lch4, to my friend ${FRIEND_NAME} asking them what they''ve been up to since we last spoke.'
+          messagePrompt: "Please create a message from me, 4lch4, to my friend ${FRIEND_NAME} asking them what they've been up to since we last spoke."
       properties:
         contactId:
           type: string
@@ -608,8 +596,6 @@ components:
         - contactId
     User:
       title: User
-      x-stoplight:
-        id: e3zglb3cf9c84
       type: object
       description: The model of a standard User that's stored in the Hermes DB.
       examples:
@@ -641,8 +627,6 @@ components:
         - lastModifiedDate
     User_CREATE:
       title: User_CREATE
-      x-stoplight:
-        id: l0lxy702k8wcd
       type: object
       description: The model of the object to send to the API when creating a new User to store in the Hermes DB.
       examples:
@@ -666,8 +650,6 @@ components:
         - username
     User_UPDATE:
       title: User
-      x-stoplight:
-        id: au1w15fac7bog
       type: object
       description: The model of a standard User that's stored in the Hermes DB.
       examples:
