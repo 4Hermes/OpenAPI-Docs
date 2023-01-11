@@ -5,7 +5,7 @@ env:
   DOCKER_IMAGE_NAME: swaggerapi/swagger-ui
   OUTER_PORT: 9000
   INNER_PORT: 8080
-  SPEC_FILENAME: swagger.json
+  SPEC_FILENAME: Hermes-Prime.yaml
   GENERATOR_INPUT_FILENAME: Hermes-OpenAPI-Spec-2023.01.11-15.17.json
   GENERATOR_INPUT_PATH: ./exports/{{ .GENERATOR_INPUT_FILENAME }}
   GENERATOR_OUTPUT_PATH: ./generator-output
@@ -22,6 +22,13 @@ tasks:
       - echo "DOCKER_IMAGE_NAME = {{ .DOCKER_IMAGE_NAME }}"
       - echo "GENERATOR_INPUT_FILENAME = {{ .GENERATOR_INPUT_FILENAME }}"
       - echo "GENERATOR_INPUT_PATH = {{ .GENERATOR_INPUT_PATH }}"
+
+  lint:
+    silent: true
+    aliases: [l]
+    desc: Lints the OpenAPI Specification file with spectral and the default ruleset.
+    cmds:
+      - spectral lint -F hint {{ .SPEC_FILENAME }}
 
   start:
     desc: Starts the Docker container that hosts the Swagger API documentation.
