@@ -1,25 +1,25 @@
 openapi: 3.0.0
 info:
   title: Hermes-Prime-3.0
-  version: '1.0'
+  version: "1.0"
   description: |-
     Handles the majority of what **Project Hermes** is capable of. For example, it provides endpoints that manage the CRUD operations for _Users_ and _Friends_, as well as an endpoint for _Check Ins_.
 
     A _Check In_ is an event where a User is generating a message to send to their Friend and all that work is done by this API.
   contact:
     name: Devin Leaman (4lch4)
-    url: 'https://4lch4.link'
+    url: "https://4lch4.link"
     email: hey@4lch4.email
   license:
     name: GPLv3
-    url: 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+    url: "https://www.gnu.org/licenses/gpl-3.0.en.html"
 
 servers:
-  - url: 'http://localhost:5050/api/v1'
+  - url: "http://localhost:5050/api/v1"
     description: Local Testing
-  - url: 'https://test.hermesapp.dev/api/v1'
+  - url: "https://test.hermesapp.dev/api/v1"
     description: Test Environment
-  - url: 'https://hermesapp.dev/api/v1'
+  - url: "https://hermesapp.dev/api/v1"
     description: Production Environment
 
 paths:
@@ -33,7 +33,7 @@ paths:
         Retrieve a list/array of all the Users currently stored in the DB.
       tags: [CheckIns]
       responses:
-        200:
+        "200":
           description: An array of CheckIn objects.
           content:
             application/json:
@@ -41,29 +41,29 @@ paths:
                 description: An array of CheckIn objects.
                 type: array
                 items:
-                  $ref: '#/components/schemas/CheckIn'
+                  $ref: "#/components/schemas/CheckIn"
               examples:
                 Get all CheckIns:
                   value:
-                    - _id: 1234567890
-                      userId: 1234567890
-                      friendId: 1234567890
+                    - _id: "1234567890"
+                      userId: "1234567890"
+                      friendId: "1234567890"
                       messageAttempts: 2
-                      createdDate: '2022-12-29T09:05:02-06:00'
-                      lastModifiedDate: '2022-12-29T09:05:02-06:00'
+                      createdDate: "2022-12-29T09:05:02-06:00"
+                      lastModifiedDate: "2022-12-29T09:05:02-06:00"
 
-                    - _id: 1234567891
-                      userId: 1234567891
-                      friendId: 1234567891
+                    - _id: "1234567891"
+                      userId: "1234567891"
+                      friendId: "1234567891"
                       messageAttempts: 2
-                      createdDate: '2022-12-29T09:05:02-06:00'
-                      lastModifiedDate: '2022-12-29T09:05:02-06:00'
+                      createdDate: "2022-12-29T09:05:02-06:00"
+                      lastModifiedDate: "2022-12-29T09:05:02-06:00"
 
-        401:
+        "401":
           description: No API token was provided.
-        403:
+        "403":
           description: Your API token doesn't have the necessary scope(s) to access this endpoint.
-        500:
+        "500":
           description: Internal Server Error
 
     post:
@@ -76,24 +76,24 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CheckIn_CREATE'
+              $ref: "#/components/schemas/CheckIn_CREATE"
       responses:
-        200:
+        "200":
           description: The created CheckIn object.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CheckIn'
-        400:
+                $ref: "#/components/schemas/CheckIn"
+        "400":
           description: Bad Request
-        401:
+        "401":
           description: No API token was provided.
-        403:
+        "403":
           description: Your API token doesn't have the necessary scope(s) to access this endpoint.
-        500:
+        "500":
           description: Internal Server Error
 
-  '/checkins/{checkInId}':
+  "/checkins/{checkInId}":
     parameters:
       - name: checkInId
         in: path
@@ -107,29 +107,29 @@ paths:
       description: Get an existing Check In with the given `checkInId`.
       tags: [CheckIns]
       responses:
-        200:
+        "200":
           description: The CheckIn object with the given `checkInId`.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CheckIn'
+                $ref: "#/components/schemas/CheckIn"
               examples:
                 Get a CheckIn:
                   description: Retrieving a single CheckIn object.
                   value:
-                    _id: 1234567890
-                    userId: 1234567890
-                    friendId: 1234567890
+                    _id: "1234567890"
+                    userId: "1234567890"
+                    friendId: "1234567890"
                     messageAttempts: 2
-                    createdDate: '2022-12-29T09:05:02-06:00'
-                    lastModifiedDate: '2022-12-29T09:05:02-06:00'
-        401:
+                    createdDate: "2022-12-29T09:05:02-06:00"
+                    lastModifiedDate: "2022-12-29T09:05:02-06:00"
+        "401":
           description: No API token was provided.
-        403:
+        "403":
           description: Your API token doesn't have the necessary scope(s) to access this endpoint.
-        404:
+        "404":
           description: CheckIn Not Found
-        500:
+        "500":
           description: Internal Server Error
 
     patch:
@@ -142,23 +142,23 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CheckIn_UPDATE'
+              $ref: "#/components/schemas/CheckIn_UPDATE"
       responses:
-        200:
+        "200":
           description: The latest version of the CheckIn object after the given properties were updated.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CheckIn'
-        400:
+                $ref: "#/components/schemas/CheckIn"
+        "400":
           description: Bad Request
-        401:
+        "401":
           description: No API token was provided.
-        403:
+        "403":
           description: Your API token doesn't have the necessary scope(s) to access this endpoint.
-        404:
+        "404":
           description: Not Found
-        500:
+        "500":
           description: Internal Server Error
 
     delete:
@@ -167,19 +167,19 @@ paths:
       description: Delete an existing Check In with the given `checkInId`.
       tags: [CheckIns]
       responses:
-        200:
+        "200":
           description: The Check In object that was deleted.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CheckIn'
-        401:
+                $ref: "#/components/schemas/CheckIn"
+        "401":
           description: No API token was provided.
-        403:
+        "403":
           description: Your API token doesn't have the necessary scope(s) to access this endpoint.
-        404:
+        "404":
           description: Not Found
-        500:
+        "500":
           description: Internal Server Error
 
   /users:
@@ -192,19 +192,19 @@ paths:
         Retrieve a list/array of all the Users currently stored in the DB.
       tags: [Users]
       responses:
-        200:
+        "200":
           description: Returns an array of User objects.
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/User'
-        401:
+                  $ref: "#/components/schemas/User"
+        "401":
           description: No API token was provided.
-        403:
+        "403":
           description: Your API token doesn't have the necessary scope(s) to access this endpoint.
-        500:
+        "500":
           description: Internal Server Error
 
     post:
@@ -217,24 +217,24 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/User_CREATE'
+              $ref: "#/components/schemas/User_CREATE"
       responses:
-        200:
+        "200":
           description: The body of the User that was created.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
-        400:
+                $ref: "#/components/schemas/User"
+        "400":
           description: Bad Request
-        401:
+        "401":
           description: No API token was provided.
-        403:
+        "403":
           description: Your API token doesn't have the necessary scope(s) to access this endpoint.
-        500:
+        "500":
           description: Internal Server Error
 
-  '/users/{userId}':
+  "/users/{userId}":
     parameters:
       - name: userId
         in: path
@@ -249,24 +249,24 @@ paths:
       description: Get an existing User with the given `userId`.
       tags: [Users]
       responses:
-        200:
+        "200":
           description: The User with the given `userId`.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: "#/components/schemas/User"
               examples:
                 Get User:
                   value:
-                    _id: '1234567890'
-                    username: '4lch4'
-                    createdDate: '2022-12-29T09:05:02-06:00'
-                    lastModifiedDate: '2022-12-29T09:05:02-06:00'
-        401:
+                    _id: "1234567890"
+                    username: "4lch4"
+                    createdDate: "2022-12-29T09:05:02-06:00"
+                    lastModifiedDate: "2022-12-29T09:05:02-06:00"
+        "401":
           description: No API token was provided.
-        403:
+        "403":
           description: Your API token doesn't have the necessary scope(s) to access this endpoint.
-        500:
+        "500":
           description: Internal Server Error
 
     patch:
@@ -279,23 +279,23 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/User_UPDATE'
+              $ref: "#/components/schemas/User_UPDATE"
       responses:
-        200:
+        "200":
           description: The latest version of the User object after the given properties were updated.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
-        400:
+                $ref: "#/components/schemas/User"
+        "400":
           description: Bad Request
-        401:
+        "401":
           description: No API token was provided.
-        403:
+        "403":
           description: Your API token doesn't have the necessary scope(s) to access this endpoint.
-        404:
+        "404":
           description: User Not Found
-        500:
+        "500":
           description: Internal Server Error
 
     delete:
@@ -304,19 +304,19 @@ paths:
       description: Delete an existing User with the given `userId`.
       tags: [Users]
       responses:
-        200:
+        "200":
           description: The User object that was deleted.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
-        401:
+                $ref: "#/components/schemas/User"
+        "401":
           description: No API token was provided.
-        403:
+        "403":
           description: Your API token doesn't have the necessary scope(s) to access this endpoint.
-        404:
+        "404":
           description: User Not Found
-        500:
+        "500":
           description: Internal Server Error
 
   /friends:
@@ -329,19 +329,19 @@ paths:
         Retrieve a list/array of all the Friends currently stored in the DB.
       tags: [Friends]
       responses:
-        200:
+        "200":
           description: An array of Friend objects.
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Friend'
-        401:
+                  $ref: "#/components/schemas/Friend"
+        "401":
           description: No API token was provided.
-        403:
+        "403":
           description: Your API token doesn't have the necessary scope(s) to access this endpoint.
-        500:
+        "500":
           description: Internal Server Error
 
     post:
@@ -354,24 +354,24 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Friend_CREATE'
+              $ref: "#/components/schemas/Friend_CREATE"
       responses:
-        200:
+        "200":
           description: The body of the Friend that was created.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Friend'
-        400:
+                $ref: "#/components/schemas/Friend"
+        "400":
           description: Bad Request
-        401:
+        "401":
           description: No API token was provided.
-        403:
+        "403":
           description: Your API token doesn't have the necessary scope(s) to access this endpoint.
-        500:
+        "500":
           description: Internal Server Error
 
-  '/friends/{friendId}':
+  "/friends/{friendId}":
     parameters:
       - name: friendId
         in: path
@@ -385,17 +385,17 @@ paths:
       description: Get a friend with the given `friendId`.
       tags: [Friends]
       responses:
-        200:
+        "200":
           description: The Friend object with the given `friendId`.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Friend'
-        401:
+                $ref: "#/components/schemas/Friend"
+        "401":
           description: No API token was provided.
-        403:
+        "403":
           description: Your API token doesn't have the necessary scope(s) to access this endpoint.
-        500:
+        "500":
           description: Internal Server Error
 
     patch:
@@ -408,19 +408,19 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Friend_UPDATE'
+              $ref: "#/components/schemas/Friend_UPDATE"
       responses:
-        200:
+        "200":
           description: Returns the latest version of the Friend object after the given properties were updated.
-        400:
+        "400":
           description: Bad Request
-        401:
+        "401":
           description: No API token was provided.
-        403:
+        "403":
           description: Your API token doesn't have the necessary scope(s) to access this endpoint.
-        404:
+        "404":
           description: Not Found
-        500:
+        "500":
           description: Internal Server Error
 
     delete:
@@ -429,15 +429,15 @@ paths:
       description: Delete a Friend with the given `friendId`.
       tags: [Friends]
       responses:
-        200:
+        "200":
           description: OK
-        401:
+        "401":
           description: No API token was provided.
-        403:
+        "403":
           description: Your API token doesn't have the necessary scope(s) to access this endpoint.
-        404:
+        "404":
           description: Not Found
-        500:
+        "500":
           description: Internal Server Error
 
 components:
@@ -462,9 +462,9 @@ components:
           type: number
           description: The amount of times Hermes had to attempt to generate a message for this CheckIn.
         createdDate:
-          $ref: '#/components/schemas/CreatedDate'
+          $ref: "#/components/schemas/CreatedDate"
         lastModifiedDate:
-          $ref: '#/components/schemas/LastModifiedDate'
+          $ref: "#/components/schemas/LastModifiedDate"
 
     CheckIn_CREATE:
       title: CheckIn_CREATE
@@ -479,9 +479,9 @@ components:
           type: string
           description: Unique identifier for the Friend who the User wants to check in on.
         createdDate:
-          $ref: '#/components/schemas/CreatedDate'
+          $ref: "#/components/schemas/CreatedDate"
         lastModifiedDate:
-          $ref: '#/components/schemas/LastModifiedDate'
+          $ref: "#/components/schemas/LastModifiedDate"
 
     CheckIn_UPDATE:
       title: CheckIn_UPDATE
@@ -495,7 +495,7 @@ components:
           type: string
           description: Unique identifier for the Friend who the User wants to check in on.
         lastModifiedDate:
-          $ref: '#/components/schemas/LastModifiedDate'
+          $ref: "#/components/schemas/LastModifiedDate"
     #endregion CheckIn Schemas
 
     #region Friend Schemas
@@ -503,7 +503,15 @@ components:
       title: Friend
       type: object
       description: The model of a standard Friend that's stored in the Hermes DB.
-      required: [_id, contactId, messagePrompt, messageAttempts, createdDate, lastModifiedDate]
+      required:
+        [
+          _id,
+          contactId,
+          messagePrompt,
+          messageAttempts,
+          createdDate,
+          lastModifiedDate,
+        ]
       properties:
         _id:
           type: string
@@ -518,11 +526,11 @@ components:
           type: number
           description: The amount of times **Hermes** had to generate a message for the User to approve before it was approved and sent to the receiving Friend. If no value is provided then the default value of `3` is used.
         createdDate:
-          $ref: '#/components/schemas/CreatedDate'
+          $ref: "#/components/schemas/CreatedDate"
         lastModifiedDate:
-          $ref: '#/components/schemas/LastModifiedDate'
+          $ref: "#/components/schemas/LastModifiedDate"
         lastContactedDate:
-          $ref: '#/components/schemas/LastContactedDate'
+          $ref: "#/components/schemas/LastContactedDate"
 
     Friend_CREATE:
       title: Friend_CREATE
@@ -540,7 +548,7 @@ components:
           type: number
           description: The amount of times **Hermes** had to generate a message for the User to approve before it was approved and sent to the receiving Friend. If no value is provided then the default value of `3` is used.
         lastContactedDate:
-          $ref: '#/components/schemas/LastContactedDate'
+          $ref: "#/components/schemas/LastContactedDate"
 
     Friend_UPDATE:
       title: Friend_UPDATE
@@ -557,7 +565,7 @@ components:
           type: number
           description: The amount of times **Hermes** had to generate a message for the User to approve before it was approved and sent to the receiving Friend. If no value is provided then the default value of `3` is used.
         lastContactedDate:
-          $ref: '#/components/schemas/LastContactedDate'
+          $ref: "#/components/schemas/LastContactedDate"
     #endregion Friend Schemas
 
     #region User Schemas
@@ -574,9 +582,9 @@ components:
           type: string
           description: The username/display name of the User.
         createdDate:
-          $ref: '#/components/schemas/CreatedDate'
+          $ref: "#/components/schemas/CreatedDate"
         lastModifiedDate:
-          $ref: '#/components/schemas/LastModifiedDate'
+          $ref: "#/components/schemas/LastModifiedDate"
 
     User_CREATE:
       title: User_CREATE
@@ -588,9 +596,9 @@ components:
           type: string
           description: The username/display name of the User.
         createdDate:
-          $ref: '#/components/schemas/CreatedDate'
+          $ref: "#/components/schemas/CreatedDate"
         lastModifiedDate:
-          $ref: '#/components/schemas/LastModifiedDate'
+          $ref: "#/components/schemas/LastModifiedDate"
 
     User_UPDATE:
       title: User_UPDATE
@@ -601,7 +609,7 @@ components:
           type: string
           description: The username/display name of the User.
         lastModifiedDate:
-          $ref: '#/components/schemas/LastModifiedDate'
+          $ref: "#/components/schemas/LastModifiedDate"
     #endregion User Schemas
 
     CreatedDate:
@@ -609,23 +617,21 @@ components:
       type: string
       description: The date-time when the object was created. Defaults to the current date & time.
       format: date-time
-      default: now
-      example: '2023-01-11T22:09:01+00:00'
+      example: "2023-01-11T22:09:01+00:00"
 
     LastModifiedDate:
       title: LastModifiedDate
       type: string
       format: date-time
       description: The date-time when the object was last modified/updated. Defaults to the date & time the object was created.
-      default: Value of createdDate.
-      example: '2023-01-11T22:09:01+00:00'
+      example: "2023-01-11T22:09:01+00:00"
 
     LastContactedDate:
       title: LastContactedDate
       type: string
       format: date-time
       description: The date-time when the individual was last contacted. Does not have any default, will be null if no value is provided.
-      example: '2023-01-11T22:09:01+00:00'
+      example: "2023-01-11T22:09:01+00:00"
 
   securitySchemes:
     QueryAPIKey:
