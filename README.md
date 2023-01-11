@@ -1,7 +1,6 @@
 # Project Hermes OpenAPI Specification
 
-!!! tip
-    You can view the specification, using Swagger UI, at [swagger.hermesapp.dev][1].
+> You can view the specification, using Swagger UI, at [swagger.hermesapp.dev][1].
 
 This repository is home to the **OpenAPI Specification** (`OAS`) and Stoplight Studio workspace for the [Hermes API][0].
 
