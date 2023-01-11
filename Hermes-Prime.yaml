@@ -15,12 +15,12 @@ info:
     url: "https://www.gnu.org/licenses/gpl-3.0.en.html"
 
 servers:
-  - url: "http://localhost:5050/api/v1"
-    description: Local Testing
-  - url: "https://test.hermesapp.dev/api/v1"
-    description: Test Environment
   - url: "https://hermesapp.dev/api/v1"
     description: Production Environment
+  - url: "https://test.hermesapp.dev/api/v1"
+    description: Test Environment
+  - url: "http://localhost:5050/api/v1"
+    description: Local Testing
 
 paths:
   /checkins:
