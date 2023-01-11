@@ -1,0 +1,28 @@
+version: 3
+
+env:
+  DOCKER_CONTAINER_NAME: hermes-swagger
+  DOCKER_IMAGE_NAME: swaggerapi/swagger-ui
+  OUTER_PORT: 9000
+  INNER_PORT: 8080
+  SPEC_FILENAME: swagger.json
+
+tasks:
+  display-variables:
+    aliases: [dv]
+    cmds:
+      - echo "DOCKER_CONTAINER_NAME = {{ .DOCKER_CONTAINER_NAME }}"
+      - echo "DOCKER_IMAGE_NAME = {{ .DOCKER_IMAGE_NAME }}"
+      - echo "OUTER_PORT = {{ .OUTER_PORT }}"
+      - echo "INNER_PORT = {{ .INNER_PORT }}"
+      - echo "SPEC_FILENAME = {{ .SPEC_FILENAME }}"
+  
+  start:
+    desc: Starts the Docker container that hosts the Swagger API documentation.
+    cmds:
+      - |
+        docker run -d --name={{ .DOCKER_CONTAINER_NAME }} \
+                  -p {{ .OUTER_PORT }}:{{ .INNER_PORT }} \
+                  -e SWAGGER_JSON=/app/{{ .SPEC_FILENAME }} \
+                  -v ${PWD}/site:/app {{ .DOCKER_IMAGE_NAME }}
+
