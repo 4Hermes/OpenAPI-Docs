@@ -1,0 +1,12 @@
+# Hermes API OpenAPI Specification Changelog
+
+Any notable changes made to the OpenAPI Specification for the Hermes API will be documented in this file.
+
+!!! tip
+    As with all of [Project Hermes](https://projecthermes.dev), the format of this `CHANGELOG` file is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0) and the versioning follows the rules of [Semantic Versioning](https://semver.org).
+
+## [`1.0.0`] — 2023-01-11
+
+### Added
+
+- The entire API specification.
