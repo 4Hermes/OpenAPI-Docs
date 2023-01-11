@@ -1,0 +1,70 @@
+version: 3
+
+env:
+  DOCKER_CONTAINER_NAME: hermes-swagger
+  DOCKER_IMAGE_NAME: swaggerapi/swagger-ui
+  OUTER_PORT: 9000
+  INNER_PORT: 8080
+  SPEC_FILENAME: Hermes-Prime.yaml
+  GENERATOR_INPUT_FILENAME: Hermes-OpenAPI-Spec-2023.01.11-15.17.json
+  GENERATOR_INPUT_PATH: ./exports/{{ .GENERATOR_INPUT_FILENAME }}
+  GENERATOR_OUTPUT_PATH: ./generator-output
+
+tasks:
+  display-variables:
+    aliases: [dv]
+    silent: true
+    cmds:
+      - echo "OUTER_PORT = {{ .OUTER_PORT }}"
+      - echo "INNER_PORT = {{ .INNER_PORT }}"
+      - echo "SPEC_FILENAME = {{ .SPEC_FILENAME }}"
+      - echo "DOCKER_CONTAINER_NAME = {{ .DOCKER_CONTAINER_NAME }}"
+      - echo "DOCKER_IMAGE_NAME = {{ .DOCKER_IMAGE_NAME }}"
+      - echo "GENERATOR_INPUT_FILENAME = {{ .GENERATOR_INPUT_FILENAME }}"
+      - echo "GENERATOR_INPUT_PATH = {{ .GENERATOR_INPUT_PATH }}"
+
+  lint:
+    silent: true
+    aliases: [l]
+    desc: Lints the OpenAPI Specification file with spectral and the default ruleset.
+    cmds:
+      - spectral lint -F hint {{ .SPEC_FILENAME }}
+
+  start:
+    desc: Starts the Docker container that hosts the Swagger API documentation.
+    cmds:
+      - |
+        docker run -d --name={{ .DOCKER_CONTAINER_NAME }} \
+                  -p {{ .OUTER_PORT }}:{{ .INNER_PORT }} \
+                  -e SWAGGER_JSON=/app/{{ .SPEC_FILENAME }} \
+                  -v ${PWD}/site:/app {{ .DOCKER_IMAGE_NAME }}
+
+  # gen:client:
+  #   aliases: [gc]
+  #   desc: Generate client code from the OpenAPI Specification using the OpenAPI Generator CLI.
+  #   cmds:
+  #     - openapi-generator-cli generate -g android -i {{ .GENERATOR_INPUT_PATH }} -o {{ .GENERATOR_OUTPUT_PATH }}/android
+  #     - openapi-generator-cli generate -g java -i {{ .GENERATOR_INPUT_PATH }} -o {{ .GENERATOR_OUTPUT_PATH }}/java
+  #     - openapi-generator-cli generate -g kotlin -i {{ .GENERATOR_INPUT_PATH }} -o {{ .GENERATOR_OUTPUT_PATH }}/kotlin
+  #     - openapi-generator-cli generate -g javascript -i {{ .GENERATOR_INPUT_PATH }} -o {{ .GENERATOR_OUTPUT_PATH }}/javascript
+  #     - openapi-generator-cli generate -g powershell -i {{ .GENERATOR_INPUT_PATH }} -o {{ .GENERATOR_OUTPUT_PATH }}/powershell
+  #     - openapi-generator-cli generate -g typescript-axios -i {{ .GENERATOR_INPUT_PATH }} -o {{ .GENERATOR_OUTPUT_PATH }}/typescript-axios
+  #     - openapi-generator-cli generate -g typescript-node -i {{ .GENERATOR_INPUT_PATH }} -o {{ .GENERATOR_OUTPUT_PATH }}/typescript-node
+
+  # gen:docs:
+  #   aliases: [gd]
+  #   desc: Generate documentation from the OpenAPI Specification using the OpenAPI Generator CLI.
+  #   cmds:
+  #     - openapi-generator-cli generate -g openapi -i {{ .GENERATOR_INPUT_PATH }} -o {{ .GENERATOR_OUTPUT_PATH }}/openapi
+  #     - openapi-generator-cli generate -g html -i {{ .GENERATOR_INPUT_PATH }} -o {{ .GENERATOR_OUTPUT_PATH }}/html
+  #     - openapi-generator-cli generate -g html2 -i {{ .GENERATOR_INPUT_PATH }} -o {{ .GENERATOR_OUTPUT_PATH }}/html2
+  #     - openapi-generator-cli generate -g asciidoc -i {{ .GENERATOR_INPUT_PATH }} -o {{ .GENERATOR_OUTPUT_PATH }}/asciidoc
+  #     - openapi-generator-cli generate -g dynamic-html -i {{ .GENERATOR_INPUT_PATH }} -o {{ .GENERATOR_OUTPUT_PATH }}/dynamic-html
+  #     - openapi-generator-cli generate -g markdown -i {{ .GENERATOR_INPUT_PATH }} -o {{ .GENERATOR_OUTPUT_PATH }}/markdown
+
+  # gen:schema:
+  #   aliases: [gs]
+  #   desc: Generate schemas from the OpenAPI Specification using the OpenAPI Generator CLI.
+  #   cmds:
+  #     - openapi-generator-cli generate -g graphql-schema -i {{ .GENERATOR_INPUT_PATH }} -o {{ .GENERATOR_OUTPUT_PATH }}/graphql-schema
+  #     - openapi-generator-cli generate -g mysql-schema -i {{ .GENERATOR_INPUT_PATH }} -o {{ .GENERATOR_OUTPUT_PATH }}/mysql-schema

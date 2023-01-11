@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: Hermes-Prime
+  title: Hermes-Prime-3.0
   version: '1.0'
   description: |-
     Handles the majority of what **Project Hermes** is capable of. For example, it provides endpoints that manage the CRUD operations for _Users_ and _Friends_, as well as an endpoint for _Check Ins_.
@@ -34,7 +34,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: ../models/User.yaml
+                  $ref: '#/components/schemas/User'
         '401':
           description: No API token was provided.
         '403':
@@ -55,7 +55,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ../models/User.yaml
+                $ref: '#/components/schemas/User'
         '400':
           description: Bad Request
         '401':
@@ -69,7 +69,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: ../models/User_CREATE.yaml
+              $ref: '#/components/schemas/User_CREATE'
         description: The object containing the Users properties.
       tags:
         - Users
@@ -91,7 +91,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ../models/User.yaml
+                $ref: '#/components/schemas/User'
               examples:
                 Get User Alice Smith:
                   value:
@@ -146,7 +146,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: ../models/User_UPDATE.yaml
+              $ref: '#/components/schemas/User_UPDATE'
             examples:
               Update First Name:
                 value:
@@ -170,7 +170,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ../models/User.yaml
+                $ref: '#/components/schemas/User'
         '401':
           description: No API token was provided.
         '403':
@@ -195,7 +195,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: ../models/Friend.yaml
+                  $ref: '#/components/schemas/Friend'
         '401':
           description: No API token was provided.
         '403':
@@ -216,7 +216,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ../models/Friend.yaml
+                $ref: '#/components/schemas/Friend'
         '400':
           description: Bad Request
         '401':
@@ -230,7 +230,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: ../models/Friend_CREATE.yaml
+              $ref: '#/components/schemas/Friend_CREATE'
         description: The body of the Friend to be created.
       tags:
         - Friends
@@ -251,7 +251,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ../models/Friend.yaml
+                $ref: '#/components/schemas/Friend'
         '401':
           description: No API token was provided.
         '403':
@@ -309,7 +309,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: ../models/CheckIn.yaml
+                  $ref: '#/components/schemas/CheckIn'
         '401':
           description: No API token was provided.
         '403':
@@ -330,7 +330,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ../models/CheckIn.yaml
+                $ref: '#/components/schemas/CheckIn'
         '400':
           description: Bad Request
         '401':
@@ -344,7 +344,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: ../models/CheckIn_CREATE.yaml
+              $ref: '#/components/schemas/CheckIn_CREATE'
         description: An object containing the CheckIn properties.
       tags:
         - CheckIns
@@ -365,7 +365,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ../models/CheckIn.yaml
+                $ref: '#/components/schemas/CheckIn'
         '401':
           description: No API token was provided.
         '403':
@@ -385,7 +385,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ../models/CheckIn.yaml
+                $ref: '#/components/schemas/CheckIn'
         '400':
           description: Bad Request
         '401':
@@ -401,7 +401,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: ../models/CheckIn_UPDATE.yaml
+              $ref: '#/components/schemas/CheckIn_UPDATE'
         description: An object with the new properties/values to update.
       tags:
         - CheckIns
@@ -414,7 +414,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ../models/CheckIn.yaml
+                $ref: '#/components/schemas/CheckIn'
         '401':
           description: No API token was provided.
         '403':
@@ -428,12 +428,11 @@ paths:
         - CheckIns
 components:
   schemas:
-    #region CheckIn Schemas
     CheckIn:
       title: CheckIn
       type: object
       description: The model of a standard Check In object that's stored in the DB when a Check In is initiated.
-      example:
+      examples:
         - _id: '1234567890'
           userId: '321231455'
           friendId: '8931458135'
@@ -442,12 +441,18 @@ components:
       properties:
         _id:
           description: Unique identifier for the given Check In as a Mongo ObjectID.
-          type: string
+          type:
+            - string
+            - number
         userId:
-          type: string
+          type:
+            - string
+            - number
           description: Unique identifier for the User who initiated the Check In process.
         friendId:
-          type: string
+          type:
+            - string
+            - number
           description: Unique identifier for the Friend who the User wants to check in on.
         createdDate:
           type: string
@@ -462,12 +467,11 @@ components:
         - friendId
         - createdDate
         - lastModifiedDate
-
     CheckIn_CREATE:
       title: CheckIn_CREATE
       type: object
       description: The model of a standard Check In object that's stored in the DB when a Check In is initiated.
-      example:
+      examples:
         - _id: '1234567890'
           userId: '321231455'
           friendId: '8931458135'
@@ -475,10 +479,14 @@ components:
           promptAttempts: 1
       properties:
         userId:
-          type: string
+          type:
+            - string
+            - number
           description: Unique identifier for the User who initiated the Check In process.
         friendId:
-          type: string
+          type:
+            - string
+            - number
           description: Unique identifier for the Friend who the User wants to check in on.
         lastModifiedDate:
           type: string
@@ -487,12 +495,11 @@ components:
       required:
         - userId
         - friendId
-
     CheckIn_UPDATE:
       title: CheckIn_UPDATE
       type: object
       description: The model of a standard Check In object that's stored in the DB when a Check In is initiated.
-      example:
+      examples:
         - _id: '1234567890'
           userId: '321231455'
           friendId: '8931458135'
@@ -500,10 +507,14 @@ components:
           promptAttempts: 1
       properties:
         userId:
-          type: string
+          type:
+            - string
+            - number
           description: Unique identifier for the User who initiated the Check In process.
         friendId:
-          type: string
+          type:
+            - string
+            - number
           description: Unique identifier for the Friend who the User wants to check in on.
         createdDate:
           type: string
@@ -516,16 +527,15 @@ components:
       required:
         - userId
         - friendId
-    #endregion CheckIn Schemas
-
-    #region Friend Schemas
     Friend:
       title: Friend
       type: object
       description: The model of a standard Friend that's stored in the Hermes DB.
       properties:
         _id:
-          type: string
+          type:
+            - string
+            - number
           description: Unique identifier for the given Friend as a Mongo ObjectID.
         contactId:
           type: string
@@ -555,12 +565,11 @@ components:
         - messageAttempts
         - createdDate
         - lastModifiedDate
-
     Friend_CREATE:
       title: Friend_CREATE
       type: object
       description: The model of the object to send to the API when creating a new Friend to store in the Hermes DB.
-      example:
+      examples:
         - contactId: '1234567890'
         - contactId: '1234567890'
           messagePrompt: "Please create a message from me, 4lch4, to my friend ${FRIEND_NAME} asking them what they've been up to since we last spoke."
@@ -585,21 +594,20 @@ components:
           description: The date-time when the associated User contacted this Friend. Will not be set if no value is provided.
       required:
         - contactId
-    #endregion Friend Schemas
-
-    #region User Schemas
     User:
       title: User
       type: object
       description: The model of a standard User that's stored in the Hermes DB.
-      example:
+      examples:
         - _id: 63ab4a738353e19cd730b527
           username: 4lch4
           createdDate: '2023-01-02T14:15:03-06:00'
           lastModifedDate: '2023-01-02T14:15:03-06:00'
       properties:
         _id:
-          type: string
+          type:
+            - string
+            - number
           description: Unique identifier for the given User as a Mongo ObjectID.
         username:
           type: string
@@ -617,12 +625,11 @@ components:
         - username
         - createdDate
         - lastModifiedDate
-
     User_CREATE:
       title: User_CREATE
       type: object
       description: The model of the object to send to the API when creating a new User to store in the Hermes DB.
-      example:
+      examples:
         - username: 4lch4
           createdDate: '2023-01-08T16:20:18-0600'
           lastModifiedDate: '2023-01-08T16:20:18-0600'
@@ -641,12 +648,11 @@ components:
           description: The date-time when the User was last modified/updated. Defaults to the date & time the object was created.
       required:
         - username
-
     User_UPDATE:
       title: User
       type: object
       description: The model of a standard User that's stored in the Hermes DB.
-      example:
+      examples:
         - _id: 63ab4a738353e19cd730b527
           username: 4lch4
           createdDate: '2023-01-02T14:15:03-06:00'
@@ -662,8 +668,6 @@ components:
       required:
         - username
         - lastModifiedDate
-    #endregion User Schemas
-
   securitySchemes:
     Query API Key:
       name: apiKey
